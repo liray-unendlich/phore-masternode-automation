@@ -1,7 +1,6 @@
 #!/bin/bash
 #please do this script as root.
 ######################################################################
-
 clear
 echo "*********** Phore マスターノード設定スクリプトへようこそ ***********"
 echo 'Ubuntu16.04に必要なパッケージをすべてインストールします。'
@@ -80,9 +79,7 @@ rpcpass=$(more /dev/urandom  | tr -d -c '[:alnum:]' | fold -w 20 | head -1)
 ipaddress=$(curl inet-ip.info)
 echo -n "マスターノードプライベートキー(ステップ2の結果)を入力もしくはペーストしてください。"
 read mngenkey
-
 echo -e "rpcuser=$rpcusr \nrpcpassword=$rpcpass \nrpcallowip=127.0.0.1 \nlisten=1 \nserver=1 \ndaemon=1 \nstaking=0 \nmasternode=1 \nlogtimestamps=1 \nmaxconnections=256 \nexternalip=$ipaddress \nbind=$ipaddress \nmasternodeaddr=$ipaddress:11771 \nmasternodeprivkey=$mngenkey \n" > ~/.phore/phore.conf
-
 echo '*** 3/4 完了 ***'
 echo '*** 設定が完了しましたので、ウォレットを起動して同期を開始します。 ***'
 phored -daemon
