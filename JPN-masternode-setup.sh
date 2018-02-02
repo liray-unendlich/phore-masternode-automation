@@ -70,10 +70,8 @@ sudo make install
 cd ..
 sudo rm -r Phore
 echo '*** ウォレットの起動・初期設定を行います。 ***'
-sleep 2
-phored -daemon
-sleep 3
-echo -n 'ここではrpcuser~エラーが出ますが気にしないでください。'
+sleep 1
+mkdir .phore
 rpcusr=$(more /dev/urandom  | tr -d -c '[:alnum:]' | fold -w 20 | head -1)
 rpcpass=$(more /dev/urandom  | tr -d -c '[:alnum:]' | fold -w 20 | head -1)
 ipaddress=$(curl inet-ip.info)
@@ -83,8 +81,8 @@ echo -e "rpcuser=$rpcusr \nrpcpassword=$rpcpass \nrpcallowip=127.0.0.1 \nlisten=
 echo '*** 3/4 完了 ***'
 echo '*** 設定が完了しましたので、ウォレットを起動して同期を開始します。 ***'
 phored -daemon
-echo '1分後に getinfo コマンドの出力結果を表示します。'
-sleep 60
+echo '20秒後に getinfo コマンドの出力結果を表示します。'
+sleep 20
 phore-cli getinfo
 sleep 2
 echo '同期が完了すれば、phore-qtのウォレットからマスターノードを実行できます！'
