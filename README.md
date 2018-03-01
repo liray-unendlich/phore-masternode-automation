@@ -12,7 +12,8 @@ it supports automatic setup and update.
 3. 新規インストールの場合プライベートキーを入力する必要があります。
 ## 使い方
 ```
-curl https://github.com/liray-unendlich/phore-masternode-automation/raw/master/JPN-masternode-setup.sh | sh -v 1.2.2 -u
+wget https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/JPN-masternode-setup.sh
+sudo sh JPN-masternode-setup.sh -v 1.2.2 -u
 ```
 
 ### オプション説明
