@@ -88,6 +88,11 @@ elif [ $install -eq 1 ]; then
   ipaddress=$(curl inet-ip.info)
   echo "マスターノードプライベートキー(ステップ2の結果)を入力もしくはペーストしてください。"
   read mngenkey
+  while [ ${#mngenkey} -ne 51 ]
+  do
+    echo "入力されたプライベートキーは正しくありません。もう一度確認してください。"
+    read mngenkey
+  done
   echo -e "rpcuser=$rpcusr \nrpcpassword=$rpcpass \nrpcallowip=127.0.0.1 \nlisten=1 \nserver=1 \ndaemon=1 \nstaking=0 \nmasternode=1 \nlogtimestamps=1 \nmaxconnections=256 \nexternalip=$ipaddress \nbind=$ipaddress \nmasternodeaddr=$ipaddress:11771 \nmasternodeprivkey=$mngenkey \n" > ~/.phore/phore.conf
   echo '*** 設定が完了しましたので、ウォレットを起動して同期を開始します。 ***'
   phored -daemon
