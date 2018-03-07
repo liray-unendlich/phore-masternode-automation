@@ -37,22 +37,22 @@ echo '**************************************************************************
 sleep 1
 echo '*** Installing package ***'
 sleep 2
-sudo apt-get update -y
-sudo apt-get upgrade -y
-sudo apt-get dist-upgrade -y
-sudo apt-get install -y nano htop git wget
+apt-get update -y
+apt-get upgrade -y
+apt-get dist-upgrade -y
+apt-get install -y nano htop git wget
 sleep 1
 echo '*** Done 1/4 ***'
 sleep 1
 echo '*** Step 2/4 ***'
 echo '*** Starting & Configuring firewall ***'
-sudo apt-get install -y ufw
-sudo ufw allow ssh/tcp
-sudo limit ssh/tcp
-sudo ufw allow 11771/tcp
-sudo ufw logging on
-sudo ufw --force enable
-sudo ufw status
+apt-get install -y ufw
+ufw allow ssh/tcp
+ufw limit ssh/tcp
+ufw allow 11771/tcp
+ufw logging on
+ufw --force enable
+ufw status
 sleep 1
 echo '*** Done 2/4 ***'
 sleep 1
@@ -63,15 +63,14 @@ phore-cli stop
 mkdir PHORE_`date '+%Y%m%d'`
 mv /usr/local/bin/phored /usr/local/bin/phore-cli /usr/local/bin/phore-tx ~/PHORE_`date '+%Y%m%d'`
 mv ~/phored ~/phore-cli ~/phore-tx ~/PHORE_`date '+%Y%m%d'`
-
 echo '***Installing Phore wallet***'
 wget https://github.com/phoreproject/Phore/releases/download/v${version}/phore-${version}-x86_64-linux-gnu.tar.gz
 tar -xvzf phore-${version}-x86_64-linux-gnu.tar.gz
 cd phore-${version}/bin
-sudo mv phore* /usr/local/bin/
+mv phore* /usr/local/bin/
 cd
 rm phore-${version}-x86_64-linux-gnu.tar.gz
-sudo rm -r phore-${version}
+rm -r phore-${version}
 if [ $update -eq 1 ]; then
   echo "Start updating..."
   phored -daemon

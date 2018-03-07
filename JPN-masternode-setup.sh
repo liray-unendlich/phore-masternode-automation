@@ -39,19 +39,19 @@ sleep 2
 apt-get update -y
 apt-get upgrade -y
 apt-get dist-upgrade -y
-apt-get install -y nano htop wget
+apt-get install -y nano htop git wget
 sleep 1
 echo '*** 完了 1/4 ***'
 sleep 1
 echo '*** ステップ 2/4 ***'
 echo '*** ファイアウォールの設定・スタートを行います。 ***'
-sudo apt-get install -y ufw
-sudo ufw allow ssh/tcp
-sudo limit ssh/tcp
-sudo ufw allow 11771/tcp
-sudo ufw logging on
-sudo ufw --force enable
-sudo ufw status
+apt-get install -y ufw
+ufw allow ssh/tcp
+ufw limit ssh/tcp
+ufw allow 11771/tcp
+ufw logging on
+ufw --force enable
+ufw status
 sleep 1
 echo '*** 2/4 完了 ***'
 sleep 1
@@ -61,16 +61,16 @@ echo '***という名前のディレクトリにアクセスしてください�
 phore-cli stop
 ./phore-cli stop
 mkdir PHORE_`date '+%Y%m%d'`
-sudo mv /usr/local/bin/phored /usr/local/bin/phore-cli /usr/local/bin/phore-tx ~/PHORE_`date '+%Y%m%d'`
-sudo mv ~/phored ~/phore-cli ~/phore-tx ~/PHORE_`date '+%Y%m%d'`
+mv /usr/local/bin/phored /usr/local/bin/phore-cli /usr/local/bin/phore-tx ~/PHORE_`date '+%Y%m%d'`
+mv ~/phored ~/phore-cli ~/phore-tx ~/PHORE_`date '+%Y%m%d'`
 echo '***phoreウォレットのインストールを開始します。***'
 wget https://github.com/phoreproject/Phore/releases/download/v${version}/phore-${version}-x86_64-linux-gnu.tar.gz
 tar -xvzf phore-${version}-x86_64-linux-gnu.tar.gz
 cd phore-${version}/bin
-sudo mv phore* /usr/local/bin/
+mv phore* /usr/local/bin/
 cd
 rm phore-${version}-x86_64-linux-gnu.tar.gz
-sudo rm -r phore-${version}
+rm -r phore-${version}
 if [ $update -eq 1 ]; then
   echo "アップデートを行います。"
   phored -daemon
