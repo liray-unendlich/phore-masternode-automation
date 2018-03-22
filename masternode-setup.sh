@@ -20,7 +20,7 @@ do
     shift
     ;;
     -*)
-    echo "エラー: 不明なオプションを入力しています: $1" > $2
+    echo "Error:invalid option $1" > $2
     exit 1
     ;;
     *)
@@ -96,7 +96,7 @@ elif [ $install -eq 1 ]; then
     read mngenkey
   done
   
-  echo -e "rpcuser=$rpcusr \nrpcpassword=$rpcpass \nrpcallowip=127.0.0.1 \nlisten=1 \nserver=1 \ndaemon=1 \nstaking=0 \nmasternode=1 \nlogtimestamps=1 \nmaxconnections=256 \nexternalip=$ipaddress \nbind=$ipaddress \nmasternodeaddr=$ipaddress:11771 \nmasternodeprivkey=$mngenkey \n" > ~/.phore/phore.conf
+  echo -e "rpcuser=$rpcusr\nrpcpassword=$rpcpass\nrpcallowip=127.0.0.1\nlisten=1\nserver=1\ndaemon=1\nstaking=0\nmasternode=1\nlogtimestamps=1\nmaxconnections=256\nexternalip=$ipaddress\nbind=$ipaddress\nmasternodeaddr=$ipaddress:11771\nmasternodeprivkey=$mngenkey\n" > ~/.phore/phore.conf
   echo '*** Start syncing... ***'
   phored -daemon
   echo 'We will show result of "phore-cli getinfo" after 20 sec.'
