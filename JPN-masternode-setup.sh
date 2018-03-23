@@ -36,11 +36,11 @@ done
 # Generate masternode private key
 function generate_privkey() {
   mkdir -p /etc/masternodes/
-  echo -e "rpcuser=test\nrpcpassword=passtest" >> $/etc/masternodes/phore_test.conf
-  phored -daemon -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes/
+  echo -e "rpcuser=test\nrpcpassword=passtest" >> /etc/masternodes/phore_test.conf
+  phored -daemon -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes
   sleep 5
-  mngenkey=$(phore-cli -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes/ masternode genkey)
-  phore-cli -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes/ stop
+  mngenkey=$(phore-cli -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes masternode genkey)
+  phore-cli -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes stop
   sleep 5
   rm -r /etc/masternodes/
 }
