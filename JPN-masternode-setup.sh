@@ -19,6 +19,10 @@ do
     update=0
     shift
     ;;
+    -g | --generate)
+    generate=1
+    shift
+    ;;
     -*)
     echo "エラー: 不明なオプションを入力しています: $1" > $2
     exit 1
@@ -28,6 +32,24 @@ do
     ;;
   esac
 done
+
+# Generate masternode private key
+function generate_privkey() {
+  mkdir -p /etc/masternodes/
+  echo -e "rpcuser=test\nrpcpassword=passtest" >> $/etc/masternodes/phore_test.conf
+  phored -daemon -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes/
+  sleep 5
+  mngenkey=$(phore-cli -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes/ masternode genkey)
+  phore-cli -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes/ stop
+  sleep 5
+  rm -r /etc/masternodes/
+}
+ 
+# Make masternode.conf for ppl
+function create_mnconf() {
+  echo Phore-MN01 $ipaddress:11771 $mngenkey TRANSACTION_ID TRANSACTION_INDEX >> tmp_masternode.conf
+  cat tmp_masternode.conf
+}  
 
 echo "*********** Phore マスターノード設定スクリプトへようこそ ***********"
 echo 'Ubuntu16.04に必要なパッケージをすべてインストールします。'
@@ -86,13 +108,17 @@ elif [ $install -eq 1 ]; then
   rpcusr=$(more /dev/urandom  | tr -d -c '[:alnum:]' | fold -w 20 | head -1)
   rpcpass=$(more /dev/urandom  | tr -d -c '[:alnum:]' | fold -w 20 | head -1)
   ipaddress=$(curl inet-ip.info)
-  echo "マスターノードプライベートキー(ステップ2の結果)を入力もしくはペーストしてください。"
-  read mngenkey
-  while [ ${#mngenkey} -ne 51 ]
-  do
-    echo "入力されたプライベートキーは正しくありません。もう一度確認してください。"
+  if [ $generate -eq 1 ]; then
+    generate_privkey
+  else
+    echo "マスターノードプライベートキー(ステップ2の結果)を入力もしくはペーストしてください。"
     read mngenkey
-  done
+    while [ ${#mngenkey} -ne 51 ]
+    do
+      echo "入力されたプライベートキーは正しくありません。もう一度確認してください。"
+      read mngenkey
+    done
+  fi
   echo -e "rpcuser=$rpcusr\nrpcpassword=$rpcpass\nrpcallowip=127.0.0.1\nlisten=1\nserver=1\ndaemon=1\nstaking=0\nmasternode=1\nlogtimestamps=1\nmaxconnections=256\nexternalip=$ipaddress\nbind=$ipaddress\nmasternodeaddr=$ipaddress:11771\nmasternodeprivkey=$mngenkey\n" > ~/.phore/phore.conf
   echo '*** 設定が完了しましたので、ウォレットを起動して同期を開始します。 ***'
   phored -daemon
@@ -101,7 +127,9 @@ elif [ $install -eq 1 ]; then
   phore-cli getinfo
   sleep 2
   echo '同期が完了すれば、phore-qtのウォレットからマスターノードを実行できます！'
-  sleep 2
+  echo '最後に、masternode.conf の例をお見せします。こちらをご利用ください。'
+  create_mnconf
+  echo 'コマンド cat tmp_masternode.conf を入力することで再度表示可能です。'
 else
   echo "入力が間違っているようです。アップデートの場合: '-u', 新規インストールの場合: '-i'をオプションとしてください。"
 　echo "終了します。"
