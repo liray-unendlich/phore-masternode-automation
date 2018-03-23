@@ -47,7 +47,7 @@ function generate_privkey() {
  
 # Make masternode.conf for ppl
 function create_mnconf() {
-  echo Phore-MN01 $ipaddress:11771 $mngenkey TRANSACTION_ID TRANSACTION_INDEX >> tmp_masternode.conf
+  echo phore-MN01 $ipaddress:11771 $mngenkey TRANSACTION_ID TRANSACTION_INDEX >> tmp_masternode.conf
   cat tmp_masternode.conf
 }  
 
@@ -128,7 +128,9 @@ elif [ $install -eq 1 ]; then
   sleep 2
   echo '同期が完了すれば、phore-qtのウォレットからマスターノードを実行できます！'
   echo '最後に、masternode.conf の例をお見せします。こちらをご利用ください。'
+  echo "\n"
   create_mnconf
+  echo "\n"
   echo 'コマンド cat tmp_masternode.conf を入力することで再度表示可能です。'
 else
   echo "入力が間違っているようです。アップデートの場合: '-u', 新規インストールの場合: '-i'をオプションとしてください。"
