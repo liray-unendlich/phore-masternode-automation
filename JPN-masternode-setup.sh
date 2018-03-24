@@ -50,14 +50,13 @@ function create_mnconf() {
   echo phore-MN01 $ipaddress:11771 $mngenkey TRANSACTION_ID TRANSACTION_INDEX >> tmp_masternode.conf
   cat tmp_masternode.conf
 }  
-
+echo " "
+echo " "
 echo "*********** Phore マスターノード設定スクリプトへようこそ ***********"
 echo 'Ubuntu16.04に必要なパッケージをすべてインストールします。'
 echo 'その後Phoreのウォレットをコンパイルし、設定、実行します。'
 echo '****************************************************************************'
-sleep 1
 echo '*** パッケージのインストール ***'
-sleep 2
 apt-get update -qqy
 apt-get upgrade -qqy
 apt-get dist-upgrade -qqy
@@ -103,7 +102,7 @@ elif [ $install -eq 1 ]; then
   mkdir .phore
   rpcusr=$(more /dev/urandom  | tr -d -c '[:alnum:]' | fold -w 20 | head -1)
   rpcpass=$(more /dev/urandom  | tr -d -c '[:alnum:]' | fold -w 20 | head -1)
-  ipaddress=$(curl inet-ip.info)
+  ipaddress=$(curl -s inet-ip.info)
   if [ $generate -eq 1 ]; then
     generate_privkey
   else
