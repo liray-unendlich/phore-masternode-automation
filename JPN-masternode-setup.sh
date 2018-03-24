@@ -58,16 +58,16 @@ echo '**************************************************************************
 sleep 1
 echo '*** パッケージのインストール ***'
 sleep 2
-apt-get update -y
-apt-get upgrade -y
-apt-get dist-upgrade -y
-apt-get install -y nano htop git wget
+apt-get update -qqy
+apt-get upgrade -qqy
+apt-get dist-upgrade -qqy
+apt-get install -qqy nano htop git wget
 sleep 1
 echo '*** 完了 1/4 ***'
 sleep 1
 echo '*** ステップ 2/4 ***'
 echo '*** ファイアウォールの設定・スタートを行います。 ***'
-apt-get install -y ufw
+apt-get install -qqy ufw
 ufw allow ssh/tcp
 ufw limit ssh/tcp
 ufw allow 11771/tcp
@@ -128,9 +128,9 @@ elif [ $install -eq 1 ]; then
   sleep 2
   echo '同期が完了すれば、phore-qtのウォレットからマスターノードを実行できます！'
   echo '最後に、masternode.conf の例をお見せします。こちらをご利用ください。'
-  echo "\n"
+  echo " "
   create_mnconf
-  echo "\n"
+  echo " "
   echo 'コマンド cat tmp_masternode.conf を入力することで再度表示可能です。'
 else
   echo "入力が間違っているようです。アップデートの場合: '-u', 新規インストールの場合: '-i'をオプションとしてください。"
