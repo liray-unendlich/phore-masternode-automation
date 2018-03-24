@@ -36,11 +36,11 @@ done
 # Generate masternode private key
 function generate_privkey() {
   mkdir -p /etc/masternodes/
-  echo -e "rpcuser=test\nrpcpassword=passtest" >> /etc/masternodes/phore_test.conf
-  phored -daemon -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes
+  echo -e "rpcuser=test\nrpcpassword=passtest" >> /etc/masternodes/phore_test.conf 
+  phored -daemon -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes >> mn.log
   sleep 5
   mngenkey=$(phore-cli -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes masternode genkey)
-  phore-cli -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes stop
+  phore-cli -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes stop >> mn.log
   sleep 5
   rm -r /etc/masternodes/
 }
@@ -50,48 +50,43 @@ function create_mnconf() {
   echo phore-MN01 $ipaddress:11771 $mngenkey TRANSACTION_ID TRANSACTION_INDEX >> tmp_masternode.conf
   cat tmp_masternode.conf
 }  
-
+echo " "
 echo "*********** Phore マスターノード設定スクリプトへようこそ ***********"
 echo 'Ubuntu16.04に必要なパッケージをすべてインストールします。'
 echo 'その後Phoreのウォレットをコンパイルし、設定、実行します。'
-echo '****************************************************************************'
-sleep 1
+echo '*****************************************************************'
 echo '*** パッケージのインストール ***'
-sleep 2
 apt-get update -qqy
 apt-get upgrade -qqy
 apt-get dist-upgrade -qqy
 apt-get install -qqy nano htop git wget
-sleep 1
-echo '*** 完了 1/4 ***'
-sleep 1
 echo '*** ステップ 2/4 ***'
 echo '*** ファイアウォールの設定・スタートを行います。 ***'
 apt-get install -qqy ufw
-ufw allow ssh/tcp
-ufw limit ssh/tcp
-ufw allow 11771/tcp
-ufw logging on
-ufw --force enable
-ufw status
-sleep 1
-echo '*** 2/4 完了 ***'
-sleep 1
+ufw allow ssh/tcp >> mn.log
+ufw limit ssh/tcp >> mn.log
+ufw allow 11771/tcp >> mn.log
+ufw logging on >> mn.log
+ufw --force enable >> mn.log
+ufw status >> mn.log
+phore-cli stop &>> mn.log
+./phore-cli stop &>> mn.log
 echo '*** ステップ 3/4 ***'
-echo '***ウォレットのバックアップを取ります。必要な場合はホーム直下のPHORE_日付 ***'
-echo '***という名前のディレクトリにアクセスしてください。***'
-phore-cli stop
-./phore-cli stop
-mkdir PHORE_`date '+%Y%m%d'`
-mv /usr/local/bin/phored /usr/local/bin/phore-cli /usr/local/bin/phore-tx ~/PHORE_`date '+%Y%m%d'`
-mv ~/phored ~/phore-cli ~/phore-tx ~/PHORE_`date '+%Y%m%d'`
+if [ -e /usr/local/bin/phored -o -e phored ]; then
+  echo '***ウォレットのバックアップを取ります。必要な場合はホーム直下のPHORE_日付 ***'
+  echo '***という名前のディレクトリにアクセスしてください。***'
+  mkdir PHORE_`date '+%Y%m%d'` >> mn.log
+  mv /usr/local/bin/phored /usr/local/bin/phore-cli /usr/local/bin/phore-tx ~/PHORE_`date '+%Y%m%d'` &>> mn.log
+  mv ~/phored ~/phore-cli ~/phore-tx ~/PHORE_`date '+%Y%m%d'` &>> mn.log
+fi
+echo '*** ステップ 4/4 ***'
 echo '***phoreウォレットのインストールを開始します。***'
-wget https://github.com/phoreproject/Phore/releases/download/v${version}/phore-${version}-x86_64-linux-gnu.tar.gz
-tar -xvzf phore-${version}-x86_64-linux-gnu.tar.gz
+wget -nv https://github.com/phoreproject/Phore/releases/download/v${version}/phore-${version}-x86_64-linux-gnu.tar.gz >> mn.log
+tar -xvzf phore-${version}-x86_64-linux-gnu.tar.gz >> mn.log
 cd phore-${version}/bin
 mv phore* /usr/local/bin/
 cd
-rm phore-${version}-x86_64-linux-gnu.tar.gz
+rm phore-${version}-x86_64-linux-gnu.tar.gz 
 rm -r phore-${version}
 if [ $update -eq 1 ]; then
   echo "アップデートを行います。"
@@ -103,11 +98,10 @@ if [ $update -eq 1 ]; then
   echo "***終了***"
 elif [ $install -eq 1 ]; then
   echo '*** インストールとしてウォレットの起動・初期設定を行います。 ***'
-  sleep 1
   mkdir .phore
   rpcusr=$(more /dev/urandom  | tr -d -c '[:alnum:]' | fold -w 20 | head -1)
   rpcpass=$(more /dev/urandom  | tr -d -c '[:alnum:]' | fold -w 20 | head -1)
-  ipaddress=$(curl inet-ip.info)
+  ipaddress=$(curl -s inet-ip.info)
   if [ $generate -eq 1 ]; then
     generate_privkey
   else
@@ -121,11 +115,10 @@ elif [ $install -eq 1 ]; then
   fi
   echo -e "rpcuser=$rpcusr\nrpcpassword=$rpcpass\nrpcallowip=127.0.0.1\nlisten=1\nserver=1\ndaemon=1\nstaking=0\nmasternode=1\nlogtimestamps=1\nmaxconnections=256\nexternalip=$ipaddress\nbind=$ipaddress\nmasternodeaddr=$ipaddress:11771\nmasternodeprivkey=$mngenkey\n" > ~/.phore/phore.conf
   echo '*** 設定が完了しましたので、ウォレットを起動して同期を開始します。 ***'
-  phored -daemon
-  echo '20秒後に getinfo コマンドの出力結果を表示します。'
-  sleep 20
+  phored -daemon &>> mn.log
+  echo '10秒後に getinfo コマンドの出力結果を表示します。'
+  sleep 10
   phore-cli getinfo
-  sleep 2
   echo '同期が完了すれば、phore-qtのウォレットからマスターノードを実行できます！'
   echo '最後に、masternode.conf の例をお見せします。こちらをご利用ください。'
   echo " "

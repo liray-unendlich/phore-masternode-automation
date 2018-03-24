@@ -14,11 +14,11 @@ it supports automatic setup and update.
 ## 使い方
 ### アップデート
 ```
-curl https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/JPN-masternode-setup.sh | bash -s -- -u -v 1.2.2
+curl -s https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/JPN-masternode-setup.sh | bash -s -- -u -v 1.2.2
 ```
 ### インストール
 ```
-curl https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/JPN-masternode-setup.sh | bash -s -- -i -g -v 1.2.2
+curl -s https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/JPN-masternode-setup.sh | bash -s -- -i -g -v 1.2.2
 ```
 
 この場合すでにphore.confにはプライベートキーなどの必要情報が全て入力されているので、後はmasternode.confを入力するだけでマスターノードを作ることが出来ます。
