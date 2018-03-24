@@ -6,6 +6,7 @@ it supports automatic setup and update.
 
 このスクリプトはマスターノードをセットアップ・アップデートしたい方用です。
 自動的なセットアップ・アップデートを行います。
+詳細なガイドは Phore_Masternode_guide_v1.5_JP.pdf をご覧ください。
 ## やっていること
 1. 各種パッケージ・アップデート
 2. phored, phore-cli, phore-tx のダウンロード・インストール
