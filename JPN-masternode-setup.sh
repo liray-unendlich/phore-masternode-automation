@@ -36,11 +36,11 @@ done
 # Generate masternode private key
 function generate_privkey() {
   mkdir -p /etc/masternodes/
-  echo -e "rpcuser=test\nrpcpassword=passtest" >> /etc/masternodes/phore_test.conf
-  phored -daemon -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes
+  echo -e "rpcuser=test\nrpcpassword=passtest" >> /etc/masternodes/phore_test.conf 
+  phored -daemon -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes >> mn.log
   sleep 5
   mngenkey=$(phore-cli -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes masternode genkey)
-  phore-cli -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes stop
+  phore-cli -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes stop >> mn.log
   sleep 5
   rm -r /etc/masternodes/
 }
@@ -71,17 +71,19 @@ ufw allow 11771/tcp >> mn.log
 ufw logging on >> mn.log
 ufw --force enable >> mn.log
 ufw status >> mn.log
+phore-cli stop &>> mn.log
+./phore-cli stop &>> mn.log
 echo '*** ステップ 3/4 ***'
-echo '***ウォレットのバックアップを取ります。必要な場合はホーム直下のPHORE_日付 ***'
-echo '***という名前のディレクトリにアクセスしてください。***'
-phore-cli stop >> mn.log
-./phore-cli stop >> mn.log
-mkdir PHORE_`date '+%Y%m%d'` >> mn.log
-mv /usr/local/bin/phored /usr/local/bin/phore-cli /usr/local/bin/phore-tx ~/PHORE_`date '+%Y%m%d'` >> mn.log
-mv ~/phored ~/phore-cli ~/phore-tx ~/PHORE_`date '+%Y%m%d'` >> mn.log
+if [ -e /usr/local/bin/phored -o -e phored ]; then
+  echo '***ウォレットのバックアップを取ります。必要な場合はホーム直下のPHORE_日付 ***'
+  echo '***という名前のディレクトリにアクセスしてください。***'
+  mkdir PHORE_`date '+%Y%m%d'` >> mn.log
+  mv /usr/local/bin/phored /usr/local/bin/phore-cli /usr/local/bin/phore-tx ~/PHORE_`date '+%Y%m%d'` &>> mn.log
+  mv ~/phored ~/phore-cli ~/phore-tx ~/PHORE_`date '+%Y%m%d'` &>> mn.log
+fi
 echo '*** ステップ 4/4 ***'
 echo '***phoreウォレットのインストールを開始します。***'
-wget https://github.com/phoreproject/Phore/releases/download/v${version}/phore-${version}-x86_64-linux-gnu.tar.gz >> mn.log
+wget -nv https://github.com/phoreproject/Phore/releases/download/v${version}/phore-${version}-x86_64-linux-gnu.tar.gz >> mn.log
 tar -xvzf phore-${version}-x86_64-linux-gnu.tar.gz >> mn.log
 cd phore-${version}/bin
 mv phore* /usr/local/bin/
