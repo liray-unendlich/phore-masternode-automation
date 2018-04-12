@@ -4,6 +4,28 @@ script of masternode setup. include updating.
 this script helps your masternode setup, or update.
 it supports automatic setup and update.
 
+In English
+## What the script do?
+1. Install package and configure firewall
+2. Install phored, phore-cli, phore-tx
+3. generate private key and run daemon
+
+## How To Use
+### Update
+```
+curl -s https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/JPN-masternode-setup.sh | bash -s -- -u -v 1.2.2
+```
+### Install
+```
+curl -s https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/JPN-masternode-setup.sh | bash -s -- -i -g -v 1.2.2
+```
+
+After the script, you will see a line like this
+```
+PhoreMN1 192.22.111.192:11771 88xrxxxxxxxxxxxxxxxxxxxxxxx7K 6b4c9xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx7ee23 0
+```
+
+In Japanese
 このスクリプトはマスターノードをセットアップ・アップデートしたい方用です。
 自動的なセットアップ・アップデートを行います。
 詳細なガイドは Phore_Masternode_guide_v1.5_JP.pdf をご覧ください。
