@@ -14,11 +14,11 @@ it supports automatic setup and update.
 ## How To Use
 ### Update
 ```
-curl -s https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/JPN-masternode-setup.sh | bash -s -- -u -v 1.2.2
+curl -s https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/masternode-setup.sh | bash -s -- -u -v 1.2.2
 ```
 ### Install
 ```
-curl -s https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/JPN-masternode-setup.sh | bash -s -- -i -g -v 1.2.2
+curl -s https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/masternode-setup.sh | bash -s -- -i -g -v 1.2.2
 ```
 
 After the script, you will see a line like this
