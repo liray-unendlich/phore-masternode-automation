@@ -1,7 +1,7 @@
 #!/bin/bash
 #please do this script as root.
 ######################################################################
-#オプションの判定処理
+#Check option
 while :
 do
   case "$1" in
@@ -24,7 +24,7 @@ do
     shift
     ;;
     -*)
-    echo "エラー: 不明なオプションを入力しています: $1" > $2
+    echo "Error: Invalid option: $1" > $2
     exit 1
     ;;
     *)
@@ -72,7 +72,7 @@ ufw --force enable >> mn.log
 ufw status >> mn.log
 phore-cli stop &>> mn.log
 ./phore-cli stop &>> mn.log
-echo '*** ステップ 3/4 ***'
+echo '*** Step 3/4 ***'
 if [ -e /usr/local/bin/phored -o -e phored ]; then
   echo '***Backup your existing phored. If you want to restore, please check PHORE_DATE ***'
   mkdir PHORE_`date '+%Y%m%d'` >> mn.log
