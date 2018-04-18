@@ -53,7 +53,7 @@ function create_mnconf() {
 echo " "
 echo "*********** Welcome to the Phore (PHR) Masternode Setup Script ***********"
 echo 'This script will install all required updates & package for Ubuntu 16.04 !'
-echo 'This script will install openbazaar server client.'
+echo 'This script will install phore masternode.'
 echo 'You can run this script on VPS only.'
 echo '****************************************************************************'
 echo '*** Installing package ***'
