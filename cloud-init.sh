@@ -110,7 +110,7 @@ elif [ $install -eq 1 ]; then
   else
     if [ -n $key ];
     then
-      mngenkey = "$key"
+      mngenkey="$key"
     else
       echo "Enter or paste masternode private key"
       read mngenkey
