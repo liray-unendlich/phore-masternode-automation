@@ -2,6 +2,10 @@
 #please do this script as root.
 ######################################################################
 #Check option
+install=0
+update=0
+generate=0
+key=""
 while :
 do
   case "$1" in
@@ -108,8 +112,7 @@ elif [ $install -eq 1 ]; then
   if [ $generate -eq 1 ]; then
     generate_privkey
   else
-    if [ -n $key ];
-    then
+    if [ -n $key ]; then
       mngenkey="$key"
     else
       echo "Enter or paste masternode private key"
