@@ -64,6 +64,7 @@ echo 'This script will install phore masternode.'
 echo 'You can run this script on VPS only.'
 echo '****************************************************************************'
 echo '*** Installing package ***'
+cd /root/
 apt-get update -qqy
 apt-get upgrade -qqy
 apt-get dist-upgrade -qqy
@@ -91,8 +92,8 @@ echo '***Installing phore wallet daemon***'
 wget -nv https://github.com/phoreproject/Phore/releases/download/v${version}/phore-${version}-x86_64-linux-gnu.tar.gz >> mn.log
 tar -xvzf phore-${version}-x86_64-linux-gnu.tar.gz >> mn.log
 cd phore-${version}/bin
-mv phore* /usr/local/bin/
-cd
+mv phore* /root/usr/local/bin/
+cd /root/
 rm phore-${version}-x86_64-linux-gnu.tar.gz
 rm -r phore-${version}
 if [ $update -eq 1 ]; then
