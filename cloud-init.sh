@@ -93,21 +93,21 @@ echo '***Installing phore wallet daemon***'
 wget -nv https://github.com/phoreproject/Phore/releases/download/v${version}/phore-${version}-x86_64-linux-gnu.tar.gz >> /root/mn.log
 tar -xvzf phore-${version}-x86_64-linux-gnu.tar.gz >> /root/mn.log
 cd phore-${version}/bin
-mv phore* /root/usr/local/bin/
+mv phore* /usr/local/bin/
 cd /root/
 rm phore-${version}-x86_64-linux-gnu.tar.gz
 rm -r phore-${version}
 if [ $update -eq 1 ]; then
   echo "Updating"
-  phored -daemon
-  phore-cli getinfo
+  /usr/local/bin/phored -daemon
+  /usr/local/bin/phore-cli getinfo
   echo "Finish Updating"
   echo "Check version data."
   echo "After checking, please restart Phore masternode from phore-qt"
   echo "***End***"
 elif [ $install -eq 1 ]; then
   echo '*** Install and configuring masternode settings ***'
-  mkdir .phore
+  mkdir /root/.phore
   rpcusr=$(more /dev/urandom  | tr -d -c '[:alnum:]' | fold -w 20 | head -1)
   rpcpass=$(more /dev/urandom  | tr -d -c '[:alnum:]' | fold -w 20 | head -1)
   ipaddress=$(curl -s inet-ip.info)
@@ -128,10 +128,10 @@ elif [ $install -eq 1 ]; then
   fi
   echo -e "rpcuser=$rpcusr\nrpcpassword=$rpcpass\nrpcallowip=127.0.0.1\nlisten=1\nserver=1\ndaemon=1\nstaking=0\nmasternode=1\nlogtimestamps=1\nmaxconnections=256\nexternalip=$ipaddress\nbind=$ipaddress\nmasternodeaddr=$ipaddress:11771\nmasternodeprivkey=$mngenkey\n" > ~/.phore/phore.conf
   echo '*** Start syncing ***'
-  phored -daemon &>> /root/mn.log
+  /usr/local/bin/phored -daemon &>> /root/mn.log
   echo 'After 10sec, I will show you the outputs of getinfo'
   sleep 10
-  phore-cli getinfo &>> /root/mn.log
+  /usr/local/bin/phore-cli getinfo &>> /root/mn.log
   echo 'After fully syncing, you can start phore masternode.'
   echo 'There is example line for masternode.conf. Please copy this line and paste to your masternode.conf'
   echo " "
