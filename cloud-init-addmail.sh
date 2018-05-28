@@ -57,20 +57,15 @@ function generate_privkey() {
   rm -r /etc/masternodes/
 }
 
-function send_mail() {
-
-  cat << EOD | nkf -j -m0 | sendmail -t
-  From: "MASTERNODE GENERATOR"
-  To: ${mail_to}
-  Subject: "Your masternode configuration"
-  Content-Type: text/plain; charset="UTF-8"
-
-
-  Here is your masternode configuration data, please enter add this line to masternode.conf.
-  ${DATA}
-
-  EOD
-
+sendMail() {
+from="MNgenerater@phore.io"
+to=$1
+inputEncoding="utf-8"
+outputEncoding="iso-2022-jp"
+subject="Masternode configuration data"
+contents="`echo -e $DATA ¦ iconv -f $inputEncoding -t $outputEncoding`"
+echo "$contents" ¦ mail -s "$subject" "$to" -- -f "$from"
+return $?
 }
 
 # Make masternode.conf for ppl
@@ -157,7 +152,7 @@ elif [ $install -eq 1 ]; then
   echo 'There is example line for masternode.conf. Please copy this line and paste to your masternode.conf'
   echo " "
   create_mnconf
-  send_mail
+  sendMail mail_to
   echo " "
   echo 'You can check the line by entering  **cat tmp_masternode.conf** '
 else
