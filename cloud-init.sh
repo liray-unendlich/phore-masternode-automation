@@ -44,19 +44,20 @@ done
 function generate_privkey() {
   mkdir -p /etc/masternodes/
   echo -e "rpcuser=test\nrpcpassword=passtest" >> /etc/masternodes/phore_test.conf
-  phored -daemon -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes >> mn.log
+  phored -daemon -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes >> /root/mn.log
   sleep 5
   mngenkey=$(phore-cli -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes masternode genkey)
-  phore-cli -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes stop >> mn.log
+  phore-cli -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes stop >> /root/mn.log
   sleep 5
   rm -r /etc/masternodes/
 }
 
 # Make masternode.conf for ppl
 function create_mnconf() {
-  echo phore-MN01 $ipaddress:11771 $mngenkey TRANSACTION_ID TRANSACTION_INDEX >> tmp_masternode.conf
+  echo phore-MN01 $ipaddress:11771 $mngenkey TRANSACTION_ID TRANSACTION_INDEX >> /root/tmp_masternode.conf
   cat tmp_masternode.conf
 }
+
 echo " "
 echo "*********** Welcome to the Phore (PHR) Masternode Setup Script ***********"
 echo 'This script will install all required updates & package for Ubuntu 16.04 !'
@@ -72,25 +73,25 @@ apt-get install -qqy nano htop git wget
 echo '*** Step 2/4 ***'
 echo '*** Configuring firewall ***'
 apt-get install -qqy ufw
-ufw allow ssh/tcp >> mn.log
-ufw limit ssh/tcp >> mn.log
-ufw allow 11771/tcp >> mn.log
-ufw logging on >> mn.log
-ufw --force enable >> mn.log
-ufw status >> mn.log
-phore-cli stop &>> mn.log
-./phore-cli stop &>> mn.log
+ufw allow ssh/tcp >> /root/mn.log
+ufw limit ssh/tcp >> /root/mn.log
+ufw allow 11771/tcp >> /root/mn.log
+ufw logging on >> /root/mn.log
+ufw --force enable >> /root/mn.log
+ufw status >> /root/mn.log
+phore-cli stop &>> /root/mn.log
+./phore-cli stop &>> /root/mn.log
 echo '*** Step 3/4 ***'
 if [ -e /usr/local/bin/phored -o -e phored ]; then
   echo '***Backup your existing phored. If you want to restore, please check PHORE_DATE ***'
-  mkdir PHORE_`date '+%Y%m%d'` >> mn.log
-  mv /usr/local/bin/phored /usr/local/bin/phore-cli /usr/local/bin/phore-tx ~/PHORE_`date '+%Y%m%d'` &>> mn.log
-  mv ~/phored ~/phore-cli ~/phore-tx ~/PHORE_`date '+%Y%m%d'` &>> mn.log
+  mkdir PHORE_`date '+%Y%m%d'` >> /root/mn.log
+  mv /usr/local/bin/phored /usr/local/bin/phore-cli /usr/local/bin/phore-tx ~/PHORE_`date '+%Y%m%d'` &>> /root/mn.log
+  mv ~/phored ~/phore-cli ~/phore-tx ~/PHORE_`date '+%Y%m%d'` &>> /root/mn.log
 fi
 echo '*** Step 4/4 ***'
 echo '***Installing phore wallet daemon***'
-wget -nv https://github.com/phoreproject/Phore/releases/download/v${version}/phore-${version}-x86_64-linux-gnu.tar.gz >> mn.log
-tar -xvzf phore-${version}-x86_64-linux-gnu.tar.gz >> mn.log
+wget -nv https://github.com/phoreproject/Phore/releases/download/v${version}/phore-${version}-x86_64-linux-gnu.tar.gz >> /root/mn.log
+tar -xvzf phore-${version}-x86_64-linux-gnu.tar.gz >> /root/mn.log
 cd phore-${version}/bin
 mv phore* /root/usr/local/bin/
 cd /root/
@@ -127,10 +128,10 @@ elif [ $install -eq 1 ]; then
   fi
   echo -e "rpcuser=$rpcusr\nrpcpassword=$rpcpass\nrpcallowip=127.0.0.1\nlisten=1\nserver=1\ndaemon=1\nstaking=0\nmasternode=1\nlogtimestamps=1\nmaxconnections=256\nexternalip=$ipaddress\nbind=$ipaddress\nmasternodeaddr=$ipaddress:11771\nmasternodeprivkey=$mngenkey\n" > ~/.phore/phore.conf
   echo '*** Start syncing ***'
-  phored -daemon &>> mn.log
+  phored -daemon &>> /root/mn.log
   echo 'After 10sec, I will show you the outputs of getinfo'
   sleep 10
-  phore-cli getinfo
+  phore-cli getinfo &>> /root/mn.log
   echo 'After fully syncing, you can start phore masternode.'
   echo 'There is example line for masternode.conf. Please copy this line and paste to your masternode.conf'
   echo " "
