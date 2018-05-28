@@ -44,10 +44,10 @@ done
 function generate_privkey() {
   mkdir -p /etc/masternodes/
   echo -e "rpcuser=test\nrpcpassword=passtest" >> /etc/masternodes/phore_test.conf
-  phored -daemon -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes >> /root/mn.log
+  /usr/local/bin/phored -daemon -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes >> /root/mn.log
   sleep 5
   mngenkey=$(phore-cli -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes masternode genkey)
-  phore-cli -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes stop >> /root/mn.log
+  /usr/local/bin/phore-cli -conf=/etc/masternodes/phore_test.conf -datadir=/etc/masternodes stop >> /root/mn.log
   sleep 5
   rm -r /etc/masternodes/
 }
@@ -55,7 +55,7 @@ function generate_privkey() {
 # Make masternode.conf for ppl
 function create_mnconf() {
   echo phore-MN01 $ipaddress:11771 $mngenkey TRANSACTION_ID TRANSACTION_INDEX >> /root/tmp_masternode.conf
-  cat tmp_masternode.conf
+  cat /root/tmp_masternode.conf >> /root/masternode.conf
 }
 
 echo " "
@@ -92,7 +92,7 @@ echo '*** Step 4/4 ***'
 echo '***Installing phore wallet daemon***'
 wget -nv https://github.com/phoreproject/Phore/releases/download/v${version}/phore-${version}-x86_64-linux-gnu.tar.gz >> /root/mn.log
 tar -xvzf phore-${version}-x86_64-linux-gnu.tar.gz >> /root/mn.log
-cd phore-${version}/bin
+cd /root/phore-${version}/bin
 mv phore* /usr/local/bin/
 cd /root/
 rm phore-${version}-x86_64-linux-gnu.tar.gz
