@@ -55,7 +55,6 @@ function generate_privkey() {
 # Make masternode.conf for ppl
 function create_mnconf() {
   echo phore-MN01 $ipaddress:11771 $mngenkey TRANSACTION_ID TRANSACTION_INDEX >> /root/tmp_masternode.conf
-  cat /root/tmp_masternode.conf >> /root/masternode.conf
 }
 
 echo " "
@@ -128,10 +127,10 @@ elif [ $install -eq 1 ]; then
   fi
   echo -e "rpcuser=$rpcusr\nrpcpassword=$rpcpass\nrpcallowip=127.0.0.1\nlisten=1\nserver=1\ndaemon=1\nstaking=0\nmasternode=1\nlogtimestamps=1\nmaxconnections=256\nexternalip=$ipaddress\nbind=$ipaddress\nmasternodeaddr=$ipaddress:11771\nmasternodeprivkey=$mngenkey\n" > ~/.phore/phore.conf
   echo '*** Start syncing ***'
-  /usr/local/bin/phored -daemon &>> /root/mn.log
+  /usr/local/bin/phored -daemon -conf=/root/.phore/phore.conf -datadir=/root/.phore &>> /root/mn.log
   echo 'After 10sec, I will show you the outputs of getinfo'
   sleep 10
-  /usr/local/bin/phore-cli getinfo &>> /root/mn.log
+  /usr/local/bin/phore-cli -conf=/root/.phore/phore.conf -datadir=/root/.phore getinfo &>> /root/mn.log
   echo 'After fully syncing, you can start phore masternode.'
   echo 'There is example line for masternode.conf. Please copy this line and paste to your masternode.conf'
   echo " "
