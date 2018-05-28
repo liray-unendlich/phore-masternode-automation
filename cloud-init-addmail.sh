@@ -57,9 +57,26 @@ function generate_privkey() {
   rm -r /etc/masternodes/
 }
 
+function send_mail() {
+
+  cat << EOD | nkf -j -m0 | sendmail -t
+  From: "MASTERNODE GENERATOR"
+  To: ${mail_to}
+  Subject: "Your masternode configuration"
+  Content-Type: text/plain; charset="UTF-8"
+
+
+  Here is your masternode configuration data, please enter add this line to masternode.conf.
+  ${DATA}
+
+  EOD
+
+}
+
 # Make masternode.conf for ppl
 function create_mnconf() {
   echo phore-MN01 $ipaddress:11771 $mngenkey TRANSACTION_ID TRANSACTION_INDEX >> /root/tmp_masternode.conf
+  DATA=$(cat /root/tmp_masternode.conf)
 }
 
 echo " "
@@ -140,6 +157,7 @@ elif [ $install -eq 1 ]; then
   echo 'There is example line for masternode.conf. Please copy this line and paste to your masternode.conf'
   echo " "
   create_mnconf
+  send_mail
   echo " "
   echo 'You can check the line by entering  **cat tmp_masternode.conf** '
 else
