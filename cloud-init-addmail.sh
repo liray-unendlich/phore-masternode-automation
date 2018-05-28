@@ -152,7 +152,8 @@ elif [ $install -eq 1 ]; then
   echo 'There is example line for masternode.conf. Please copy this line and paste to your masternode.conf'
   echo " "
   create_mnconf
-  sendMail mail_to
+  echo " "
+  sendMail "$mail_to"
   echo " "
   echo 'You can check the line by entering  **cat tmp_masternode.conf** '
 else
