@@ -4,7 +4,7 @@ script of masternode setup. include updating.
 this script helps your masternode setup, or update.
 it supports automatic setup and update.
 
-[![tipsensuで投げる](https://img.shields.io/badge/TipMe-Phore-brightgreen.svg)](https://twitter.com/share?text=%40tipsensu%20tip%20phr%20%40PhoreJapan%201)
+[![tipsensuで投げる](https://img.shields.io/badge/TipMe-Phore-brightgreen.svg)](https://twitter.com/intent/tweet?text=%40tipsensu%20tip%20phr%20%40PhoreJapan%201)
 
 ## In English
 
