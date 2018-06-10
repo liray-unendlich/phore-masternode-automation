@@ -5,7 +5,9 @@ this script helps your masternode setup, or update.
 it supports automatic setup and update.
 
 
-[(https://img.shields.io/badge/TipMe-Phore%20via%20LINE-green.svg)](https://line.me/R/oaMessage/@utx6777n/?./withdraw phr%200.1%20PW7DqjKXaaVeFRegsfZq5GC5j73G3Ct3kf)
+[![tipsensu] (https://img.shields.io/badge/TipMe-Phore%20via%20LINE-green.svg)](https://line.me/R/oaMessage/@utx6777n/?./withdraw phr%200.1%20PW7DqjKXaaVeFRegsfZq5GC5j73G3Ct3kf)
+
+[![tipsensuで投げる](https://img.shields.io/badge/TipMe-Phore%20via%20Twitter-blue.svg)](https://twitter.com/intent/tweet?text=%40tipsensu%20tip%20phr%20%40PhoreJapan%201)
 
 ## In English
 
