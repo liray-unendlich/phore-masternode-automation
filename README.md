@@ -4,7 +4,7 @@ script of masternode setup. include updating.
 this script helps your masternode setup, or update.
 it supports automatic setup and update.
 
-[![Desktopで投げる](https://img.shields.io/badge/TipMe-Phore%20via%20Desktop-brightgreen.svg)](phore://PW7DqjKXaaVeFRegsfZq5GC5j73G3Ct3kf)
+[![Desktopで投げる](https://img.shields.io/badge/TipMe-Phore%20via%20Desktop-brightgreen.svg)](phore:PW7DqjKXaaVeFRegsfZq5GC5j73G3Ct3kf?label=Tip&message=Tip%20for%20you%20with%20Phore)
 
 [![LINEで投げる](https://img.shields.io/badge/TipMe-Phore%20via%20LINE-green.svg)](https://line.me/R/oaMessage/@utx6777n/?./withdraw%20phr%200.1%20PW7DqjKXaaVeFRegsfZq5GC5j73G3Ct3kf)
 
