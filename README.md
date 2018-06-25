@@ -10,6 +10,8 @@ it supports automatic setup and update.
 
 [![Twitterで投げる](https://img.shields.io/badge/TipMe-Phore%20via%20Twitter-blue.svg)](https://twitter.com/intent/tweet?text=@tipsensu%20tip%20phr%20@PhoreJapan%201)
 
+test
+<a href="phore:PW7DqjKXaaVeFRegsfZq5GC5j73G3Ct3kf?label=Tip&message=Tip%20for%20you%20with%20Phore"><img src="https://img.shields.io/badge/TipMe-Phore%20via%20Desktop-brightgreen.svg" alt="Tip via desktop wallet" title="Tipping"></a>
 ## In English
 
 ## What the script do?
