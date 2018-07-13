@@ -10,8 +10,6 @@ it supports automatic setup and update.
 
 [![Twitterで投げる](https://img.shields.io/badge/TipMe-Phore%20via%20Twitter-blue.svg)](https://twitter.com/intent/tweet?text=@tipsensu%20tip%20phr%20@PhoreJapan%201)
 
-test
-<a href="phore:PW7DqjKXaaVeFRegsfZq5GC5j73G3Ct3kf?label=Tip&message=Tip%20for%20you%20with%20Phore"><img src="https://img.shields.io/badge/TipMe-Phore%20via%20Desktop-brightgreen.svg" alt="Tip via desktop wallet" title="Tipping"></a>
 ## In English
 
 ## What the script do?
@@ -22,11 +20,11 @@ test
 ## How To Use
 ### Update
 ```
-curl -s https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/masternode-setup.sh | bash -s -- -u -v 1.2.2
+curl -s https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/masternode-setup.sh | bash -s -- -u -v 1.3.2
 ```
 ### Install
 ```
-curl -s https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/masternode-setup.sh | bash -s -- -i -g -v 1.2.2
+curl -s https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/masternode-setup.sh | bash -s -- -i -g -v 1.3.2
 ```
 
 After the script, you will see a line like this
@@ -52,11 +50,11 @@ PhoreMN1 192.22.111.192:11771 88xrxxxxxxxxxxxxxxxxxxxxxxx7K 6b4c9xxxxxxxxxxxxxxx
 ## 使い方
 ### アップデート
 ```
-curl -s https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/JPN-masternode-setup.sh | bash -s -- -u -v 1.2.2
+curl -s https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/JPN-masternode-setup.sh | bash -s -- -u -v 1.3.2
 ```
 ### インストール
 ```
-curl -s https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/JPN-masternode-setup.sh | bash -s -- -i -g -v 1.2.2
+curl -s https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/JPN-masternode-setup.sh | bash -s -- -i -g -v 1.3.2
 ```
 
 この場合すでにphore.confにはプライベートキーなどの必要情報が全て入力されているので、後はmasternode.confを入力するだけでマスターノードを作ることが出来ます。
