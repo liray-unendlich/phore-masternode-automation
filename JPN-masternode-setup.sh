@@ -83,6 +83,7 @@ echo '*** ステップ 4/4 ***'
 echo '***phoreウォレットのインストールを開始します。***'
 wget -nv https://github.com/phoreproject/Phore/releases/download/v${version}/phore-${version}-x86_64-linux-gnu.tar.gz >> mn.log
 tar -xvzf phore-${version}-x86_64-linux-gnu.tar.gz >> mn.log
+version=${version:0:5}
 cd phore-${version}/bin
 mv phore* /usr/local/bin/
 cd
