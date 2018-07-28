@@ -20,11 +20,11 @@ it supports automatic setup and update.
 ## How To Use
 ### Update
 ```
-curl -s https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/masternode-setup.sh | bash -s -- -u -v 1.3.2
+curl -s https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/masternode-setup.sh | bash -s -- -u -v 1.3.3.1
 ```
 ### Install
 ```
-curl -s https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/masternode-setup.sh | bash -s -- -i -g -v 1.3.2
+curl -s https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/masternode-setup.sh | bash -s -- -i -g -v 1.3.3.1
 ```
 
 After the script, you will see a line like this
@@ -50,11 +50,12 @@ PhoreMN1 192.22.111.192:11771 88xrxxxxxxxxxxxxxxxxxxxxxxx7K 6b4c9xxxxxxxxxxxxxxx
 ## 使い方
 ### アップデート
 ```
-curl -s https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/JPN-masternode-setup.sh | bash -s -- -u -v 1.3.2
+curl -s https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/JPN-masternode-setup.sh | bash -s -- -u -v 1.3.3.1
 ```
+
 ### インストール
 ```
-curl -s https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/JPN-masternode-setup.sh | bash -s -- -i -g -v 1.3.2
+curl -s https://raw.githubusercontent.com/liray-unendlich/phore-masternode-automation/master/JPN-masternode-setup.sh | bash -s -- -i -g -v 1.3.3.1
 ```
 
 この場合すでにphore.confにはプライベートキーなどの必要情報が全て入力されているので、後はmasternode.confを入力するだけでマスターノードを作ることが出来ます。
